@@ -10,8 +10,9 @@ The **Rapid POS Unified Accounting Connector** automates the synchronization of 
 While this integration provides significant value, it assumes a solid understanding of accounting and bookkeeping principles. Without that foundation, the connector may feel complex or introduce confusion into your financial processes.
 
 This guide will help you:
-- Understand what the connector does
+
 - Explain the CI/CD Deployment Model
+- Understand what the connector does
 - Evaluate whether it is the right fit for your business  
 - Prepare for a successful implementation  
 
@@ -35,29 +36,14 @@ This guide will help you:
 
 ## Table of Contents
 
-- Minimum Knowledge Requirements  
 - CI/CD Deployment Model  
+- Minimum Knowledge Requirements  
 - SECTION 1: Accounting Knowledge Self-Assessment  
 - SECTION 2: Connector Overview  
 - SECTION 3: Transaction Responsibilities  
 - SECTION 4: Integration Frequency Options  
-- SECTION 5: Connection Levels  
-- SECTION 6: Costs and Pricing  
+- SECTION 5: Costs and Pricing  
 - Conclusion  
-
----
-
-## Minimum Knowledge Requirements
-
-Before implementing the Accounting Connector, you or your financial lead should understand:
-
-- Debits and credits  
-- Clearing accounts  
-- Bank deposit reconciliation  
-- Contra accounts  
-- Basic journal entries  
-
-If these concepts are unfamiliar, consider working with your accountant or using manual processes until your foundation is stronger.
 
 ---
 
@@ -141,6 +127,18 @@ View current connector documentation and release notes:
 👉 https://github.com/Rapid-POS
 
 ---
+
+## Minimum Knowledge Requirements
+
+Before implementing the Accounting Connector, you or your financial lead should understand:
+
+- Debits and credits  
+- Clearing accounts  
+- Bank deposit reconciliation  
+- Contra accounts  
+- Basic journal entries  
+
+If these concepts are unfamiliar, consider working with your accountant or using manual processes until your foundation is stronger.
 
 ## SECTION 1: Accounting Knowledge Self-Assessment
 
@@ -253,7 +251,7 @@ If not, consider:
 
 The Accounting Connector consists of two primary components:
 
-### 1. Vendor Payables (Vouchering Received Purchase Orders)
+### 1. Vendor Payables (Vouchering Receivers)
 
 - Merchandise receipts entered in Counterpoint generate **accounts payable entries** in your accounting system (e.g., QuickBooks)
 
@@ -261,7 +259,7 @@ The Accounting Connector consists of two primary components:
 
 ### 2. General Ledger (Distributions)
 
-Counterpoint automatically sends the following data to your accounting system:
+Counterpoint will push the following data to your accounting system:
 
 - Sales  
 - Tenders  
@@ -273,10 +271,10 @@ Counterpoint automatically sends the following data to your accounting system:
 
 ---
 
-## Accounting Flow Overview: Distributions and Vouchering from Counterpoint to Accounting Application
+## Accounting Flow Overview: Vouchering and Distributions from Counterpoint to Accounting Application
 
 ```mermaid
-flowchart LR
+flowchart TB
 
 subgraph D["Distributions (Sales and Inventory Activity)"]
 direction TB
@@ -300,11 +298,21 @@ direction TB
 VI["Vendor Invoice Matched to Receiver"]
 VI --> VIJE["Debit: Unvouchered Receivings<br/>Credit: Accounts Payable"]
 end
+
+
+
+
+
+subgraph V["Vouchering (Accounts Payable Process)"]
+direction TB
+
+VI["Vendor Invoice Matched to Receiver"]
+VI --> VIJE["Debit: Unvouchered Receivings<br/>Credit: Accounts Payable"]
+end
 ```
 
-Transaction Responsibilities
 
-## Transaction Responsibilities: Counterpoint vs. Accounting System
+## SECTION 1: Transaction Responsibilities: Counterpoint vs. Accounting System
 
 To ensure accurate financial reporting, it is important that you and your bookkeeper clearly understand which system is responsible for each type of transaction.
 
@@ -320,28 +328,9 @@ The Counterpoint Accounting Connector is designed to automate the flow of key fi
 
 ---
 
-## ## SECTION 4: Integration Frequency Options
-
-You can control how often data is synchronized between Counterpoint and your accounting system.
-
-### Common Options
-
-- 3 times per day  
-- 1 time per day  
-- Weekly  
-- Monthly  
-
-Choose a frequency that aligns with your:
-- Transaction volume  
-- Reporting needs  
-- Reconciliation process  
-
----
-
-
 ## SECTION 4: Integration Frequency Options
 
-Configure how often data syncs between systems.
+You can control how often data is synchronized between Counterpoint and your accounting system.
 
 ### Common Options:
 - 3 times per day  
@@ -356,21 +345,7 @@ Configure how often data syncs between systems.
 
 ---
 
-## SECTION 5: Connection Levels
-
-Counterpoint supports multiple integration levels.
-
-### Available Option:
-- **None**
-  - No automated integration  
-  - Fully manual accounting process
-  - Using the Unified Accounting Connector to automate the data transfer
-
-*(Additional levels may be available depending on configuration.)*
-
----
-
-## SECTION 6: Costs and Pricing
+## SECTION 5: Costs and Pricing
 
 ### General Notes
 
