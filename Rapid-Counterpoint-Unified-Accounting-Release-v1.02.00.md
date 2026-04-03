@@ -1,4 +1,4 @@
-# Rapid POS Unified Accounting Connector v1.02.00 Release Notes
+# Rapid POS Unified Accounting Connector v2.00.00 Release Notes
 
 **Release Date:** April 7, 2026
 
