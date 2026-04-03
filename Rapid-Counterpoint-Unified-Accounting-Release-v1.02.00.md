@@ -6,8 +6,6 @@
 
 
 
----
-
 # QuickBooks Online
 
 ## Bug Fixes and Performance Enhancements
@@ -19,26 +17,26 @@
 
 - Fixed duplicate entries when multiple users perform vouchering at the same time  
 
-- Added validation to prevent conflicts when a vendor name already exists as a customer name  
-
 ---
+<br>
 
 # QuickBooks Desktop
 
 ## New Functionality
 
-- Added user-friendly error messaging  
 - Introduced pop-up error notifications to improve visibility for users  
 
-- Centralized the database connection in the server directory  
-  - Eliminates the need for workstation-level configuration  
-  - Reduces risk of corruption
- 
+
 ## Bug Fixes and Performance Enhancements
 
 - Fixed an issue where `IsErrorRecoveryInfo` could generate duplicate error records across multiple workstations  
   - Now assigns a unique error ID per workstation for accurate tracking  
+  - Added validation to prevent conflicts when a vendor name already exists as a customer name  
 
 - Fixed duplicate entries when multiple users perform vouchering simultaneously  
 
 - Fixed duplicate entries when users retry interfacing after an error  
+
+- Centralized the database connection in the server directory  
+  - Eliminates the need for workstation-level configuration  
+  - Reduces risk of corruption  
