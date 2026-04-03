@@ -1,16 +1,44 @@
 # Rapid POS Unified Accounting Connector v1.02.00 Release Notes
-Release Date: March 2026
 
-## Bug Fixes and Enhancements
+**Release Date:** April 7, 2026
 
-### QuickBooks Online – Journal Number Generation
-Fixed the auto-generation of journal numbers to ensure a unique number is created per date. This prevents errors when the **“Warn me if duplicate journal number is used”** option is enabled.
+---
 
-### QuickBooks Desktop – Database Connection Location
-The database connection is now centralized in the **server directory** and no longer needs to be added to the **workstation top-level directory**, which could sometimes become corrupted.
 
-### QuickBooks Desktop – Error Recovery Tracking
-Fixed an issue where **IsErrorRecoveryInfo** could generate duplicate error records across multiple workstations. The system now assigns a **unique error ID per workstation** to ensure accurate error recovery tracking and prevent duplicate entries.
 
-### QuickBooks Desktop – Duplicate Voucher Entries
-Resolved an issue that could cause **duplicate entries when multiple users were vouchering at the same time**.
+---
+
+# QuickBooks Online
+
+## Bug Fixes and Performance Enhancements
+
+- Fixed auto-generation of journal numbers to ensure a unique number is created per date  
+  - Prevents errors when the *“Warn me if duplicate journal number is used”* option is enabled  
+
+- Fixed duplicate entries when users retry interfacing after an error  
+
+- Fixed duplicate entries when multiple users perform vouchering at the same time  
+
+- Added validation to prevent conflicts when a vendor name already exists as a customer name  
+
+---
+
+# QuickBooks Desktop
+
+## New Functionality
+
+- Added user-friendly error messaging  
+- Introduced pop-up error notifications to improve visibility for users  
+
+- Centralized the database connection in the server directory  
+  - Eliminates the need for workstation-level configuration  
+  - Reduces risk of corruption
+ 
+## Bug Fixes and Performance Enhancements
+
+- Fixed an issue where `IsErrorRecoveryInfo` could generate duplicate error records across multiple workstations  
+  - Now assigns a unique error ID per workstation for accurate tracking  
+
+- Fixed duplicate entries when multiple users perform vouchering simultaneously  
+
+- Fixed duplicate entries when users retry interfacing after an error  
