@@ -1,6 +1,8 @@
-# V2.00.08  
+# Rapid POS Unified Accounting Connector Release Notes
+
 ## QuickBooks Desktop  
-**Release Date:** May 20th, 2026
+**Release Date:** May 20th, 2026  
+**New Version:** v2.00.08
 
 ## Bug Fixes and Performance Enhancements
 
