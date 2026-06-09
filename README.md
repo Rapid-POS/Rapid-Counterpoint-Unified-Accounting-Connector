@@ -1,5 +1,5 @@
 # Rapid POS Unified Accounting Connector Guide  
-**Updated: 03/31/2026**
+**Updated: June 9th 2026**
 
 ---
 
@@ -26,12 +26,19 @@ This guide will help you:
 
 ---
 
-## Minimum System Requirements:
-- Minimum Counterpoint version: **8.5.6.2**  
-- Minimum SQL Server version: **2016**  
-- Minimum Windows Server version: **2016**  
-- Minimum PowerShell version: **5.1**
-  
+## System Requirements
+
+| Requirement | Minimum Version |
+|-------------|----------------|
+| Counterpoint | 8.5.6.2 |
+| SQL Server | 2016 |
+| Windows Server | 2016 |
+| PowerShell | 5.1 |
+
+For detailed CI/CD release requirements, see the [CI/CD Connector Requirements](https://github.com/Rapid-POS/Miscellaneous-Documents/blob/main/CICD-Connector-Requirements.md).
+
+If your system does not meet these minimum requirements, please consult your Care Team Lead (vCIO) for an upgrade quote.
+
 ---
 
 ## Table of Contents
@@ -57,66 +64,59 @@ This modern approach ensures your connector is continuously updated, more reliab
 
 ---
 
-### What is CI/CD?
+# Rapid CI/CD Connector Benefits
 
-CI/CD allows updates to be:
+_Updated June 5, 2026_
 
-- Automatically tested and validated  
-- Seamlessly deployed to all clients  
-- Delivered continuously without manual intervention  
+With a Rapid CI/CD connector, updates happen automatically — no manual reinstalls, no unexpected bills.
 
-Your connector always runs the latest, most stable version.
+This is made possible by a **CI/CD pipeline** (Continuous Integration / Continuous Deployment), which Rapid has been using for connector updates since 2024.
 
 ---
 
-### Benefits
+## What You Get
 
-#### Automatic Updates
-- No manual reinstallations required  
-- New features and bug fixes deployed automatically  
-- Issues often resolved before impacting your system  
+With a CI/CD connector, you receive:
 
-#### Reduced Costs and Friction
-- Eliminates billable update labor (previously $156/hour)  
-- Removes unpredictable upgrade costs  
-- Faster and more consistent rollout of improvements  
-
-#### Improved Reliability
-- Rapid response to bugs and third-party changes  
-- Ongoing performance enhancements  
-- Reduced downtime  
+- **Automatic bug fixes** — issues are often resolved before you notice them
+- **Automatic feature enhancements** — new capabilities are delivered as they become available
+- **Compatibility updates** — when third-party platforms change their APIs or systems, Rapid can deploy fixes before your business is affected
+- **Reduced downtime** — fewer disruptions, fewer maintenance windows
+- **Predictable monthly pricing** — no surprise labor charges for individual updates
 
 ---
 
-### Updated Billing Model
+## How It Used to Work
 
-To support CI/CD, connectors are now billed on a **monthly subscription basis**.
+Previously, every bug fix or new feature had to be manually reinstalled for each client that requested it. This meant:
 
-#### Key Advantages
+- Labor billed at Rapid's standard hourly rate
+- Delays while updates were rolled out individually
+- Unexpected costs with little advance notice
 
-**Predictable Costs**
-- No surprise fees for required updates  
-
-**Fair Pricing**
-- Shared investment across all clients  
-
-**Lower Long-Term Costs**
-- Economies of scale as adoption grows  
-
-**Continuous Improvement**
-- Ongoing investment in features, support, and performance  
+CI/CD eliminates this cycle. Updates are deployed automatically across all clients, with no reinstall required.
 
 ---
 
-### Deployment Notifications
+## What Your Subscription Supports
 
-Before any update is deployed:
+CI/CD connectors are actively maintained products, not one-time software installations. Your subscription funds continuous improvements, including:
 
-- You will receive **at least 24 hours advance notice via email**
-- Notifications include:
-  - Deployment timing  
-  - Summary of changes  
-  - Link to release notes  
+- New features and functionality funded by Rapid
+- Ongoing maintenance, bug fixes, and performance improvements
+- Compatibility updates when third-party platforms like Shopify, BigCommerce, ShipStation, or Mailchimp change their APIs or systems
+- Infrastructure required for automated deployments
+
+This ensures every client benefits from improvements as they are released — not just those who ask.
+
+---
+
+## Deployment Notifications and Release Notes
+
+Rapid will attempt to provide at least 24 hours' notice prior to scheduled connector upgrades, along with an estimated deployment window. In rare circumstances, an important update may need to be deployed on short notice or without notice.
+
+Release notes and version history for all CI/CD connectors are available on GitHub:
+[https://github.com/Rapid-POS](https://github.com/Rapid-POS)
 
 ---
 
@@ -124,7 +124,7 @@ Before any update is deployed:
 
 View current connector documentation and release notes:
 
-👉 https://github.com/Rapid-POS
+👉 [https://github.com/Rapid-POS](https://github.com/Rapid-POS)
 
 ---
 
@@ -140,11 +140,13 @@ Before implementing the Accounting Connector, you or your financial lead should 
 
 If these concepts are unfamiliar, consider working with your accountant or using manual processes until your foundation is stronger.
 
+---
+
 ## SECTION 1: Accounting Knowledge Self-Assessment
 
 ## Should You Connect Counterpoint to Your Accounting System?
 
-Connecting Counterpoint to a financial system is not the right choice for every business. This decision should be based on your store’s processes, preferences, and level of accounting expertise.
+Connecting Counterpoint to a financial system is not the right choice for every business. This decision should be based on your store's processes, preferences, and level of accounting expertise.
 
 ### Manual vs. Automated Approaches
 
@@ -192,6 +194,7 @@ In these cases, a manual approach may produce better results until your processe
 ### Next Step: Self-Assessment
 
 To help determine whether the Accounting Connector is the right fit for your store, review the following questions and answers. These are designed to assess your understanding of key bookkeeping concepts and guide your decision.
+
 Use the following questions to evaluate your readiness.
 
 ---
@@ -245,7 +248,7 @@ If not, consider:
 
 ---
 
-## SECTION 2: Connector Overview 
+## SECTION 2: Connector Overview
 
 ## Core Connector Functions
 
@@ -266,7 +269,7 @@ Counterpoint will push the following data to your accounting system:
 - Cost of Goods Sold (COGS)  
 - Inventory adjustments  
 - Inventory value  
-   
+
 <img width="975" height="568" alt="image" src="https://github.com/user-attachments/assets/08120841-dc83-4295-b7b5-fbe9107c2883" />
 
 ---
@@ -298,21 +301,11 @@ direction TB
 VI["Vendor Invoice Matched to Receiver"]
 VI --> VIJE["Debit: Unvouchered Receivings<br/>Credit: Accounts Payable"]
 end
-
-
-
-
-
-subgraph V["Vouchering (Accounts Payable Process)"]
-direction TB
-
-VI["Vendor Invoice Matched to Receiver"]
-VI --> VIJE["Debit: Unvouchered Receivings<br/>Credit: Accounts Payable"]
-end
 ```
 
+---
 
-## SECTION 1: Transaction Responsibilities: Counterpoint vs. Accounting System
+## SECTION 3: Transaction Responsibilities: Counterpoint vs. Accounting System
 
 To ensure accurate financial reporting, it is important that you and your bookkeeper clearly understand which system is responsible for each type of transaction.
 
@@ -371,7 +364,7 @@ You can control how often data is synchronized between Counterpoint and your acc
 ### Additional Options
 
 | Option | Cost |
-|------|------|
+|--------|------|
 | Custom Chart of Accounts | $624 |
 | Category / Subcategory / Multi-Location | $468 |
 | Align Account Codes (up to 20) | $624 |
@@ -400,6 +393,4 @@ However, successful implementation depends on:
 ---
 
 For assistance with setup, evaluation, or configuration, contact **Rapid Support**.
-
-
-
+````
