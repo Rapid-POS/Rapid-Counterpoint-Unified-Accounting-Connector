@@ -1,28 +1,25 @@
-# Rapid POS Unified Accounting Connector Guide  
-**Updated: June 9th 2026**
+# Rapid POS Unified Accounting Connector
+Updated June 17th 2026
+
+The Rapid POS Unified Accounting Connector automates the synchronization of sales, tender, and inventory data between CounterPoint and your accounting system — reducing manual data entry and improving financial accuracy.
+
+> **Note:** This integration assumes a solid understanding of accounting and bookkeeping principles. Without that foundation, the connector may feel complex or introduce confusion into your financial processes. Review the [Accounting Knowledge Self-Assessment](#section-1-accounting-knowledge-self-assessment) before proceeding.
 
 ---
 
 ## Overview
 
-The **Rapid POS Unified Accounting Connector** automates the synchronization of sales, tender, and inventory data between Counterpoint and your accounting system—reducing manual data entry and improving financial accuracy.
+The Unified Accounting Connector eliminates manual financial data entry by pushing sales, tenders, cost of goods sold, inventory adjustments, and accounts payable directly from CounterPoint into your accounting platform. It is continuously maintained and deployed through Rapid's CI/CD pipeline, meaning updates are delivered automatically with no manual reinstalls required.
 
-While this integration provides significant value, it assumes a solid understanding of accounting and bookkeeping principles. Without that foundation, the connector may feel complex or introduce confusion into your financial processes.
-
-This guide will help you:
-
-- Explain the CI/CD Deployment Model
-- Understand what the connector does
-- Evaluate whether it is the right fit for your business  
-- Prepare for a successful implementation  
+👉 [Release Notes & Documentation](https://github.com/Rapid-POS)
 
 ---
 
 ## Supported Accounting Platforms
 
-- QuickBooks Desktop  
-- QuickBooks Online  
-- Sage Intacct *(CI/CD deployment coming soon)*  
+- QuickBooks Desktop
+- QuickBooks Online
+- Sage Intacct *(CI/CD deployment coming soon)*
 
 ---
 
@@ -30,10 +27,10 @@ This guide will help you:
 
 | Requirement | Minimum Version |
 |-------------|----------------|
-| Counterpoint | 8.5.6.2 |
-| SQL Server | 2016 |
-| Windows Server | 2016 |
-| PowerShell | 5.1 |
+| **CounterPoint** | 8.5.6.2 |
+| **SQL Server** | 2016 |
+| **Windows Server** | 2016 |
+| **PowerShell** | 5.1 |
 
 > [!WARNING]
 > Your environment must meet our [CI/CD Connector Requirements](https://github.com/Rapid-POS/Miscellaneous-Documents/blob/main/CICD-Connector-Requirements.md) (server access, firewall rules, etc.) before any install or upgrade. Troubleshooting, manual installs, or follow-up work resulting from unmet requirements will be billed at standard T&M rates.
@@ -44,38 +41,22 @@ If your system does not meet these minimum requirements, please consult your Car
 
 ## Table of Contents
 
-- CI/CD Deployment Model  
-- Minimum Knowledge Requirements  
-- SECTION 1: Accounting Knowledge Self-Assessment  
-- SECTION 2: Connector Overview  
-- SECTION 3: Transaction Responsibilities  
-- SECTION 4: Integration Frequency Options  
-- SECTION 5: Costs and Pricing  
-- Conclusion  
+- [CI/CD Deployment Model](#cicd-deployment-model)
+- [Minimum Knowledge Requirements](#minimum-knowledge-requirements)
+- [Section 1: Accounting Knowledge Self-Assessment](#section-1-accounting-knowledge-self-assessment)
+- [Section 2: Connector Overview](#section-2-connector-overview)
+- [Section 3: Transaction Responsibilities](#section-3-transaction-responsibilities)
+- [Section 4: Integration Frequency Options](#section-4-integration-frequency-options)
+- [Section 5: Costs and Pricing](#section-5-costs-and-pricing)
+- [Conclusion](#conclusion)
 
 ---
 
 ## CI/CD Deployment Model
 
-### Overview
+Starting in 2024, Rapid transitioned its connectors to a **CI/CD (Continuous Integration / Continuous Deployment)** model. This modern approach ensures your connector is continuously updated, more reliable, and future-proof.
 
-Starting in 2024, Rapid transitioned its connectors to a **CI/CD (Continuous Integration / Continuous Deployment)** model.
-
-This modern approach ensures your connector is continuously updated, more reliable, and future-proof.
-
----
-
-# Rapid CI/CD Connector Benefits
-
-_Updated June 5, 2026_
-
-With a Rapid CI/CD connector, updates happen automatically — no manual reinstalls, no unexpected bills.
-
-This is made possible by a **CI/CD pipeline** (Continuous Integration / Continuous Deployment), which Rapid has been using for connector updates since 2024.
-
----
-
-## What You Get
+### What You Get
 
 With a CI/CD connector, you receive:
 
@@ -85,46 +66,26 @@ With a CI/CD connector, you receive:
 - **Reduced downtime** — fewer disruptions, fewer maintenance windows
 - **Predictable monthly pricing** — no surprise labor charges for individual updates
 
----
+### How It Used to Work
 
-## How It Used to Work
+Previously, every bug fix or new feature had to be manually reinstalled for each client that requested it. This meant labor billed at Rapid's standard hourly rate, delays while updates were rolled out individually, and unexpected costs with little advance notice. CI/CD eliminates this cycle — updates are deployed automatically across all clients with no reinstall required.
 
-Previously, every bug fix or new feature had to be manually reinstalled for each client that requested it. This meant:
+### What Your Subscription Supports
 
-- Labor billed at Rapid's standard hourly rate
-- Delays while updates were rolled out individually
-- Unexpected costs with little advance notice
+CI/CD connectors are actively maintained products, not one-time software installations. Your subscription funds:
 
-CI/CD eliminates this cycle. Updates are deployed automatically across all clients, with no reinstall required.
-
----
-
-## What Your Subscription Supports
-
-CI/CD connectors are actively maintained products, not one-time software installations. Your subscription funds continuous improvements, including:
-
-- New features and functionality funded by Rapid
+- New features and functionality
 - Ongoing maintenance, bug fixes, and performance improvements
-- Compatibility updates when third-party platforms like Shopify, BigCommerce, ShipStation, or Mailchimp change their APIs or systems
+- Compatibility updates when third-party platforms change their APIs or systems
 - Infrastructure required for automated deployments
 
 This ensures every client benefits from improvements as they are released — not just those who ask.
 
----
-
-## Deployment Notifications and Release Notes
+### Deployment Notifications and Release Notes
 
 Rapid will attempt to provide at least 24 hours' notice prior to scheduled connector upgrades, along with an estimated deployment window. In rare circumstances, an important update may need to be deployed on short notice or without notice.
 
 Release notes and version history for all CI/CD connectors are available on GitHub:
-[https://github.com/Rapid-POS](https://github.com/Rapid-POS)
-
----
-
-### Release Notes & Documentation
-
-View current connector documentation and release notes:
-
 👉 [https://github.com/Rapid-POS](https://github.com/Rapid-POS)
 
 ---
@@ -133,149 +94,102 @@ View current connector documentation and release notes:
 
 Before implementing the Accounting Connector, you or your financial lead should understand:
 
-- Debits and credits  
-- Clearing accounts  
-- Bank deposit reconciliation  
-- Contra accounts  
-- Basic journal entries  
+- Debits and credits
+- Clearing accounts
+- Bank deposit reconciliation
+- Contra accounts
+- Basic journal entries
 
 If these concepts are unfamiliar, consider working with your accountant or using manual processes until your foundation is stronger.
 
 ---
 
-## SECTION 1: Accounting Knowledge Self-Assessment
+## Section 1: Accounting Knowledge Self-Assessment
 
-## Should You Connect Counterpoint to Your Accounting System?
+### Should You Connect CounterPoint to Your Accounting System?
 
-Connecting Counterpoint to a financial system is not the right choice for every business. This decision should be based on your store's processes, preferences, and level of accounting expertise.
+Connecting CounterPoint to a financial system is not the right choice for every business. This decision should be based on your store's processes, preferences, and level of accounting expertise.
 
 ### Manual vs. Automated Approaches
 
-Some retailers prefer a **manual workflow**, which may include:
-- Running reports from Counterpoint
-- Sending those reports to an accountant
-- Entering summary data manually into their accounting system  
-
-Counterpoint fully supports this approach by providing the necessary reporting tools.
-
----
-
-### When Integration Adds Complexity
-
-For some businesses, connecting Counterpoint directly to an accounting platform introduces a higher level of accounting structure and discipline than currently exists.
-
-Depending on your organization, this can be:
-- A **positive step forward** toward more sophisticated financial tracking  
-- Or an **unnecessary complication** that adds confusion and overhead  
-
----
+Some retailers prefer a **manual workflow**, which may include running reports from CounterPoint, sending those reports to an accountant, and entering summary data manually into their accounting system. CounterPoint fully supports this approach by providing the necessary reporting tools.
 
 ### When Integration Adds Value
 
 If you or your financial lead have a solid understanding of accounting and bookkeeping principles, the Accounting Connector can provide significant benefits:
 
-- Reduced manual data entry  
-- Improved accuracy  
-- Better financial visibility  
-- More timely reporting  
-
----
+- Reduced manual data entry
+- Improved accuracy
+- Better financial visibility
+- More timely reporting
 
 ### When to Proceed with Caution
 
-If your accounting foundation is limited, the connector may feel:
-- Intimidating  
-- Difficult to manage  
-- Frustrating to troubleshoot  
+If your accounting foundation is limited, the connector may feel intimidating, difficult to manage, or frustrating to troubleshoot. In these cases, a manual approach may produce better results until your processes and knowledge are more developed.
 
-In these cases, a manual approach may produce better results until your processes and knowledge are more developed.
+### Self-Assessment Questions
 
----
-
-### Next Step: Self-Assessment
-
-To help determine whether the Accounting Connector is the right fit for your store, review the following questions and answers. These are designed to assess your understanding of key bookkeeping concepts and guide your decision.
-
-Use the following questions to evaluate your readiness.
+Use the following questions to evaluate your readiness before proceeding with implementation.
 
 ---
 
-### Q1: Clearing Account Transactions
+**Q1: Clearing Account Transactions**
 
-**Question:**  
 When a sale occurs, a credit is recorded in sales and a debit in an undeposited tender account. What happens when funds are deposited?
 
-**Answer:**
-- Debit: Cash account  
-- Credit: Undeposited tender account  
+- Debit: Cash account
+- Credit: Undeposited tender account
 
 This clears the transaction from the clearing account.
 
 ---
 
-### Q2: Purpose of Clearing Accounts
+**Q2: Purpose of Clearing Accounts**
 
-**Answer:**
 Clearing accounts provide a control point. Any remaining balance highlights discrepancies between expected and actual deposits, enabling reconciliation.
 
 ---
 
-### Q3: Contra Accounts
+**Q3: Contra Accounts**
 
-**Answer:**
 A contra account carries an opposite balance to its classification.
 
-**Example:**
-- Merchandise returns tracked separately from sales  
-- Enables clearer financial reporting  
+**Example:** Merchandise returns tracked separately from sales, enabling clearer financial reporting.
 
 ---
 
-### Q4: Cash Drawer Shortage
+**Q4: Cash Drawer Shortage**
 
-**Answer:**
-- Debit: Cash Over/Short Expense  
-- Credit: Undeposited Cash  
-
----
-
-### Assessment Summary
-
-If these concepts are understood, the connector can provide strong value.
-
-If not, consider:
-- Using Counterpoint reports  
-- Manually entering data into your accounting system  
+- Debit: Cash Over/Short Expense
+- Credit: Undeposited Cash
 
 ---
 
-## SECTION 2: Connector Overview
+**Assessment Summary**
 
-## Core Connector Functions
+If these concepts are well understood, the connector can provide strong value. If not, consider using CounterPoint reports and manually entering data into your accounting system until your accounting foundation is stronger.
 
-The Accounting Connector consists of two primary components:
+---
+
+## Section 2: Connector Overview
+
+The Accounting Connector consists of two primary components.
 
 ### 1. Vendor Payables (Vouchering Receivers)
 
-- Merchandise receipts entered in Counterpoint generate **accounts payable entries** in your accounting system (e.g., QuickBooks)
-
----
+Merchandise receipts entered in CounterPoint generate **accounts payable entries** in your accounting system (e.g., QuickBooks).
 
 ### 2. General Ledger (Distributions)
 
-Counterpoint will push the following data to your accounting system:
+CounterPoint pushes the following data to your accounting system:
 
-- Sales  
-- Tenders  
-- Cost of Goods Sold (COGS)  
-- Inventory adjustments  
-- Inventory value  
+- Sales
+- Tenders
+- Cost of Goods Sold (COGS)
+- Inventory adjustments
+- Inventory value
 
-<img width="975" height="568" alt="image" src="https://github.com/user-attachments/assets/08120841-dc83-4295-b7b5-fbe9107c2883" />
-
----
-
-## Accounting Flow Overview: Vouchering and Distributions from Counterpoint to Accounting Application
+### Accounting Flow Overview
 
 ```mermaid
 flowchart TB
@@ -306,92 +220,76 @@ end
 
 ---
 
-## SECTION 3: Transaction Responsibilities: Counterpoint vs. Accounting System
+## Section 3: Transaction Responsibilities
 
-To ensure accurate financial reporting, it is important that you and your bookkeeper clearly understand which system is responsible for each type of transaction.
+To ensure accurate financial reporting, you and your bookkeeper must clearly understand which system is responsible for each type of transaction. The Accounting Connector is designed to automate the flow of key financial data into your accounting system while maintaining a clear separation of responsibilities between systems.
 
----
-
-### Overview
-
-The Counterpoint Accounting Connector is designed to automate the flow of key financial data into your accounting system while maintaining a clear separation of responsibilities between systems.
+Refer to your Rapid POS representative for a full transaction responsibility matrix covering what CounterPoint manages, what the connector automates, and what must be handled directly in your accounting system.
 
 ---
 
-<img width="777" height="401" alt="image" src="https://github.com/user-attachments/assets/ad5b003a-3560-4ff7-8516-6ebbfd484ce1" />
+## Section 4: Integration Frequency Options
+
+You can control how often data is synchronized between CounterPoint and your accounting system.
+
+### Common Options
+
+- 3 times per day
+- Daily
+- Weekly
+- Monthly
+
+### Considerations
+
+When choosing a frequency, consider your transaction volume, reporting needs, and reconciliation processes. Higher-volume stores typically benefit from more frequent syncs to keep financial data current and reduce end-of-period reconciliation effort.
 
 ---
 
-## SECTION 4: Integration Frequency Options
-
-You can control how often data is synchronized between Counterpoint and your accounting system.
-
-### Common Options:
-- 3 times per day  
-- Daily  
-- Weekly  
-- Monthly  
-
-**Consider:**
-- Transaction volume  
-- Reporting needs  
-- Reconciliation processes  
-
----
-
-## SECTION 5: Costs and Pricing
+## Section 5: Costs and Pricing
 
 ### General Notes
 
-- Rapid does **not sell accounting software**  
-- Accounting software must be sourced separately  
-- Rapid supports the connector only (not accounting system usage)  
-- No third-party tools are required  
-
----
+- Rapid does **not sell accounting software** — accounting software must be sourced separately
+- Rapid supports the connector only, not accounting system usage
+- No third-party tools are required
 
 ### Baseline Pricing (Single Location)
 
-#### QuickBooks (Desktop or Online)
-- Setup: **$999**  
-- Monthly: **$65**
-
-#### Sage Intacct
-- Setup: **$2,800**  
-- Monthly: **$65**
-
----
+| Platform | Setup | Monthly |
+|---|---|---|
+| QuickBooks Desktop | $999.00 | $65.00/mo |
+| QuickBooks Online | $999.00 | $65.00/mo |
+| Sage Intacct | $2,800.00 | $65.00/mo |
 
 ### Additional Options
 
 | Option | Cost |
-|--------|------|
-| Custom Chart of Accounts | $624 |
-| Category / Subcategory / Multi-Location | $468 |
-| Align Account Codes (up to 20) | $624 |
+|---|---|
+| Custom Chart of Accounts | $624.00 |
+| Category / Subcategory / Multi-Location | $468.00 |
+| Align Account Codes (up to 20) | $624.00 |
 
-> Additional account configuration billed at standard hourly rates.
+> Additional account configuration is billed at standard hourly rates.
 
 ---
 
 ## Conclusion
 
-The Rapid POS Unified Accounting Connector streamlines financial workflows by automating data transfer between Counterpoint and your accounting system.
+The Rapid POS Unified Accounting Connector streamlines financial workflows by automating data transfer between CounterPoint and your accounting system. Successful implementation depends on a solid accounting foundation, clear process ownership, and proper configuration.
 
-However, successful implementation depends on:
+**Key benefits:**
 
-- A solid accounting foundation  
-- Clear process ownership  
-- Proper configuration  
+- Reduced manual data entry
+- Improved accuracy
+- Better financial visibility
+- Continuous updates through CI/CD — no manual reinstalls
 
-### Key Benefits
+Before go-live, complete the self-assessment in Section 1, confirm your environment meets the system requirements, and review transaction responsibilities with your bookkeeper or accountant.
 
-- Reduced manual data entry  
-- Improved accuracy  
-- Better financial visibility  
-- Continuous updates through CI/CD  
+For assistance with setup, evaluation, or configuration, contact Rapid Support.
 
----
 
-For assistance with setup, evaluation, or configuration, contact **Rapid Support**.
-````
+
+
+
+
