@@ -1,5 +1,5 @@
 # Rapid POS Unified Accounting Connector
-Updated June 17th 2026
+Updated September 16th 2026
 
 The Rapid POS Unified Accounting Connector automates the synchronization of sales, tender, and inventory data between CounterPoint and your accounting system — reducing manual data entry and improving financial accuracy.
 
@@ -25,7 +25,7 @@ The Unified Accounting Connector eliminates manual financial data entry by pushi
 
 ## Minimum System Requirements:
 - Minimum Counterpoint version: **8.5.6.2**  
-- Minimum SQL Server version: **2016**  
+- Minimum SQL Server version: **2017**  
 - Minimum Supported Operating System version: **Windows Server 2016** or **Windows 11 Pro** 
 - Minimum PowerShell version: **5.1**
 
