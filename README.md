@@ -1,5 +1,5 @@
 # Rapid POS Unified Accounting Connector
-**Updated November 6th 2026**
+Updated November 6th 2026
 
 The Rapid POS Unified Accounting Connector automates the synchronization of sales, tender, and inventory data between CounterPoint and your accounting system — reducing manual data entry and improving financial accuracy.
 
@@ -17,15 +17,18 @@ The Unified Accounting Connector eliminates manual financial data entry by pushi
 
 ## Supported Accounting Platforms
 
-- QuickBooks Desktop
+- QuickBooks Desktop Enterprise (versions currently supported by Intuit)
 - QuickBooks Online
-- Sage Intacct *(CI/CD deployment coming soon)*
-- **Sage BusinessWorks (Export Interface)** **— file-based. The connector creates import files and a user imports them into BusinessWorks. See [Sage BusinessWorks Export Interface](#sage-businessworks-export-interface).**
+- Sage Intacct (API-based) *(CI/CD deployment coming soon)*
+- Sage BusinessWorks (Export Interface) — file-based. The connector creates import files and a user imports them into BusinessWorks. See [Sage BusinessWorks Export Interface](#sage-businessworks-export-interface).
 
-### **Direct vs. Export Interfaces**
+> [!IMPORTANT]
+> **QuickBooks Desktop 2023 (including Enterprise 23.0) was discontinued by Intuit on May 31, 2026.** The software still opens, but Intuit's connected services no longer work: payroll tax updates, bank feeds, payments processing, security updates, and live support. QuickBooks Desktop Enterprise remains actively sold and supported. The connector requires a version of QuickBooks Desktop Enterprise that Intuit currently supports. If you are on an older version, upgrade before implementation or consider QuickBooks Online.
 
-- **Direct interface: data is sent straight to the accounting system when distributions or vouchered receivings are interfaced in CounterPoint (QuickBooks Desktop, QuickBooks Online, Sage Intacct).**
-- **Export interface: instead of posting data directly, the connector writes it to import files that a user then imports into the accounting system (Sage BusinessWorks).**
+### Direct vs. Export Interfaces
+
+- Direct interface: data is sent straight to the accounting system when distributions or vouchered receivings are interfaced in CounterPoint (QuickBooks Desktop, QuickBooks Online, Sage Intacct).
+- Export interface: instead of posting data directly, the connector writes it to import files that a user then imports into the accounting system (Sage BusinessWorks).
 
 ---
 
@@ -48,13 +51,13 @@ If your system does not meet these minimum requirements, please consult your Car
 - [Minimum Knowledge Requirements](#minimum-knowledge-requirements)
 - [Section 1: Accounting Knowledge Self-Assessment](#section-1-accounting-knowledge-self-assessment)
 - [Section 2: Connector Overview](#section-2-connector-overview)
-  - **[QuickBooks Online Data Flow](#quickbooks-online-data-flow)**
-  - **[Sage BusinessWorks Export Interface](#sage-businessworks-export-interface)**
+  - [QuickBooks Online Data Flow](#quickbooks-online-data-flow)
+  - [Sage BusinessWorks Export Interface](#sage-businessworks-export-interface)
 - [Section 3: Transaction Responsibilities](#section-3-transaction-responsibilities)
 - [Section 4: Integration Frequency Options](#section-4-integration-frequency-options)
 - [Section 5: Costs and Pricing](#section-5-costs-and-pricing)
-- **[Section 6: Account Interface Levels](#section-6-account-interface-levels)**
-- **[Section 7: Implementation Steps](#section-7-implementation-steps)**
+- [Section 6: Account Interface Levels](#section-6-account-interface-levels)
+- [Section 7: Implementation Steps](#section-7-implementation-steps)
 - [Conclusion](#conclusion)
 
 ---
@@ -121,13 +124,13 @@ Connecting CounterPoint to a financial system is not the right choice for every 
 
 Some retailers prefer a **manual workflow**, which may include running reports from CounterPoint, sending those reports to an accountant, and entering summary data manually into their accounting system. CounterPoint fully supports this approach by providing the necessary reporting tools.
 
-**Many smaller retailers print a handful of CounterPoint reports each month and send them to their accountant:**
+Many smaller retailers print a handful of CounterPoint reports each month and send them to their accountant:
 
-- **Sales & Tenders Report**
-- **Inventory Valuation Report**
-- **Tax Report**
+- Sales & Tenders Report
+- Inventory Valuation Report
+- Tax Report
 
-**Skipping the integration is a reasonable choice if your store is small or your bookkeeping expertise is limited.**
+Skipping the integration is a reasonable choice if your store is small or your bookkeeping expertise is limited.
 
 ### When Integration Adds Value
 
@@ -202,7 +205,7 @@ CounterPoint pushes the following data to your accounting system:
 - Cost of Goods Sold (COGS)
 - Inventory adjustments
 - Inventory value
-- **A/R balance**
+- A/R balance
 
 ### Accounting Flow Overview
 
@@ -233,48 +236,48 @@ VI --> VIJE["Debit: Unvouchered Receivings<br/>Credit: Accounts Payable"]
 end
 ```
 
-### **QuickBooks Online Data Flow**
+### QuickBooks Online Data Flow
 
-**The QuickBooks Online integration pushes Vendors, Vendor Terms, Distributions, and Vouchered Receivings/RTVs from CounterPoint to QuickBooks so you can manage business expenses in your accounting software. The sync is one-way. No data from QuickBooks is imported into CounterPoint.**
+The QuickBooks Online integration pushes Vendors, Vendor Terms, Distributions, and Vouchered Receivings/RTVs from CounterPoint to QuickBooks so you can manage business expenses in your accounting software. The sync is one-way. No data from QuickBooks is imported into CounterPoint.
 
-**Accounts and Classes must be set up in QuickBooks first, then mapped to an account and class in CounterPoint.**
+Accounts and Classes must be set up in QuickBooks first, then mapped to an account and class in CounterPoint.
 
-| **Object/Segment** | **Source** | **Destination** | **Contents** |
+| Object/Segment | Source | Destination | Contents |
 |---|---|---|---|
-| **Journal Entry** | **CounterPoint** | **QuickBooks Online** | **Journal Entry #, Transaction Date, Adjustment, Journal Entry Lines** |
-| **Journal Entry Line** | **CounterPoint** | **QuickBooks Online** | **Amount, Detail Type, Description, Posting Type, Class, Account** |
-| **Vendor** | **CounterPoint** | **QuickBooks Online** | **Address, Account #, Company Name, Display Name, Print on Check Name, Active, Phone # (Primary), Web Address** |
-| **Vendor Credit** | **CounterPoint** | **QuickBooks Online** | **Account, Total Amount, Transaction Date, Vendor Credit #, Private Note, Vendor Credit Lines** |
-| **Vendor Credit Line** | **CounterPoint** | **QuickBooks Online** | **Amount, Description, Detail Type, Account** |
-| **Vendor Bill** | **CounterPoint** | **QuickBooks Online** | **Account, Total Amount, Transaction Date, Vendor Bill #, Private Note, Vendor Bill Lines** |
-| **Vendor Bill Line** | **CounterPoint** | **QuickBooks Online** | **Amount, Description, Detail Type, Account** |
-| **Vendor Terms** | **CounterPoint** | **QuickBooks Online** | **Name, Active, Type, Discount Percent, Days Due, Day of Month Due** |
+| Journal Entry | CounterPoint | QuickBooks Online | Journal Entry #, Transaction Date, Adjustment, Journal Entry Lines |
+| Journal Entry Line | CounterPoint | QuickBooks Online | Amount, Detail Type, Description, Posting Type, Class, Account |
+| Vendor | CounterPoint | QuickBooks Online | Address, Account #, Company Name, Display Name, Print on Check Name, Active, Phone # (Primary), Web Address |
+| Vendor Credit | CounterPoint | QuickBooks Online | Account, Total Amount, Transaction Date, Vendor Credit #, Private Note, Vendor Credit Lines |
+| Vendor Credit Line | CounterPoint | QuickBooks Online | Amount, Description, Detail Type, Account |
+| Vendor Bill | CounterPoint | QuickBooks Online | Account, Total Amount, Transaction Date, Vendor Bill #, Private Note, Vendor Bill Lines |
+| Vendor Bill Line | CounterPoint | QuickBooks Online | Amount, Description, Detail Type, Account |
+| Vendor Terms | CounterPoint | QuickBooks Online | Name, Active, Type, Discount Percent, Days Due, Day of Month Due |
 
-### **Sage BusinessWorks Export Interface**
+### Sage BusinessWorks Export Interface
 
-**BusinessWorks can't be written to by other programs, so this connector works differently from the other platforms. It turns CounterPoint's pending GL distributions and AP vouchers into files in BusinessWorks' import format, and a user imports them. A successful run means a file is ready. It doesn't mean the data is in BusinessWorks yet.**
+BusinessWorks can't be written to by other programs, so this connector works differently from the other platforms. It turns CounterPoint's pending GL distributions and AP vouchers into files in BusinessWorks' import format, and a user imports them. A successful run means a file is ready. It doesn't mean the data is in BusinessWorks yet.
 
-**Files are written to `C:\CPAccounting\BW\Export`, and a Message Center note is created in CounterPoint for each one.**
+Files are written to `C:\CPAccounting\BW\Export`, and a Message Center note is created in CounterPoint for each one.
 
-| **File** | **Contents** | **Import With (in BusinessWorks)** |
+| File | Contents | Import With (in BusinessWorks) |
 |---|---|---|
-| **`Vendor_Import_<datetime>.csv`** | **New or changed vendors** | **AP > Transfer > Import Vendor Information** |
-| **`AP_Import_<datetime>.csv`** | **Vendor bills and vendor credits** | **AP > Transfer > Import Invoices/Adjustments** |
-| **`GL_Import_<batch>_<datetime>.csv`** | **General ledger journal entries** | **GL > Transfer > Import Journal Entries** |
+| `Vendor_Import_<datetime>.csv` | New or changed vendors | AP > Transfer > Import Vendor Information |
+| `AP_Import_<datetime>.csv` | Vendor bills and vendor credits | AP > Transfer > Import Invoices/Adjustments |
+| `GL_Import_<batch>_<datetime>.csv` | General ledger journal entries | GL > Transfer > Import Journal Entries |
 
-**Import order: Vendor file first (when there is one), then AP, then GL. BusinessWorks rejects an invoice for a vendor it doesn't have yet. The GL file doesn't depend on the others. Once files are imported, archive or delete them so they aren't imported twice.**
+Import order: Vendor file first (when there is one), then AP, then GL. BusinessWorks rejects an invoice for a vendor it doesn't have yet. The GL file doesn't depend on the others. Once files are imported, archive or delete them so they aren't imported twice.
 
-#### **Limits and Behavior**
+#### Limits and Behavior
 
-- **GL: One journal entry per distribution date, all in the General (GEN) journal, with the CounterPoint GL batch number as the reference. Max 999 entries per file. Only the GL account segment is sent (no profit center).**
-- **AP: One line per voucher. Payment terms and discounts are not sent, only the due date. Max 20 distribution lines per voucher. A voucher over that limit is skipped, raises an alert, and stays in CounterPoint for the next run. The reference is cut off at 20 characters.**
-- **Vendors: Only vendors with a voucher in the run that haven't been sent before. Plain ASCII only. Accented characters are reduced to the base letter, and phone numbers are sent only if they have 10 digits.**
+- GL: One journal entry per distribution date, all in the General (GEN) journal, with the CounterPoint GL batch number as the reference. Max 999 entries per file. Only the GL account segment is sent (no profit center).
+- AP: One line per voucher. Payment terms and discounts are not sent, only the due date. Max 20 distribution lines per voucher. A voucher over that limit is skipped, raises an alert, and stays in CounterPoint for the next run. The reference is cut off at 20 characters.
+- Vendors: Only vendors with a voucher in the run that haven't been sent before. Plain ASCII only. Accented characters are reduced to the base letter, and phone numbers are sent only if they have 10 digits.
 
-#### **Alerts and Validation**
+#### Alerts and Validation
 
-**If the connector fails, a Sage BusinessWorks … Alert note appears in the CounterPoint Message Center (ACCTG_SAGEBW group). If CounterPoint warns that unposted G/L transactions are already on file, stop and check the last GL file before you continue. Continuing without checking can create duplicates.**
+If the connector fails, a Sage BusinessWorks … Alert note appears in the CounterPoint Message Center (ACCTG_SAGEBW group). If CounterPoint warns that unposted G/L transactions are already on file, stop and check the last GL file before you continue. Continuing without checking can create duplicates.
 
-**To validate, compare CounterPoint's Distributions by Account Number (Summary) report with BusinessWorks' Journal Entry Batch Report for the same date. See the Sage BusinessWorks Connector User Guide for the full steps.**
+To validate, compare CounterPoint's Distributions by Account Number (Summary) report with BusinessWorks' Journal Entry Batch Report for the same date. See the Sage BusinessWorks Connector User Guide for the full steps.
 
 ---
 
@@ -282,12 +285,12 @@ end
 
 To ensure accurate financial reporting, you and your bookkeeper must clearly understand which system is responsible for each type of transaction. The Accounting Connector is designed to automate the flow of key financial data into your accounting system while maintaining a clear separation of responsibilities between systems.
 
-| **Area** | **CounterPoint** | **Your Accounting System** |
+| Area | CounterPoint | Your Accounting System |
 |---|---|---|
-| **Item-level data** | **Manages all item-level data** | **Inventory held at GL level (no item detail required)** |
-| **Accounts receivable** | **Manages A/R** | **A/R held at GL level (no account detail required)** |
-| **Accounts payable** | **Does not manage A/P** | **A/P account detail managed here** |
-| **Non-merchandise expense** | **Rarely used** | **Managed here (rent, utilities, payroll, etc.)** |
+| Item-level data | Manages all item-level data | Inventory held at GL level (no item detail required) |
+| Accounts receivable | Manages A/R | A/R held at GL level (no account detail required) |
+| Accounts payable | Does not manage A/P | A/P account detail managed here |
+| Non-merchandise expense | Rarely used | Managed here (rent, utilities, payroll, etc.) |
 
 Refer to your Rapid POS representative for a full transaction responsibility matrix covering what CounterPoint manages, what the connector automates, and what must be handled directly in your accounting system.
 
@@ -322,10 +325,18 @@ When choosing a frequency, consider your transaction volume, reporting needs, an
 
 | Platform | Setup | Monthly |
 |---|---|---|
-| QuickBooks Desktop | $999.00 | $65.00/mo |
+| QuickBooks Desktop Enterprise | $999.00 | $65.00/mo |
+| QuickBooks Desktop Enterprise (hosted in Oxygen) | $1,299.00 | $65.00/mo |
 | QuickBooks Online | $999.00 | $65.00/mo |
-| Sage Intacct | $2,800.00 | $65.00/mo |
-| **Sage BusinessWorks (Export Interface)** | **TBD** | **TBD** |
+| Sage Intacct (API-based) | $2,800.00 | $65.00/mo |
+| Sage BusinessWorks (Export Interface) | TBD | TBD |
+
+> QuickBooks Desktop Enterprise must be a version currently supported by Intuit. See [Supported Accounting Platforms](#supported-accounting-platforms).
+
+### Chart of Accounts
+
+- **Standard:** Baseline pricing includes setup with Rapid's Standard Chart of Accounts.
+- **Custom:** If you need your own chart of accounts instead, add the Custom Chart of Accounts option below.
 
 ### Additional Options
 
@@ -333,36 +344,36 @@ When choosing a frequency, consider your transaction volume, reporting needs, an
 |---|---|
 | Custom Chart of Accounts | $624.00 |
 | Category / Subcategory / Multi-Location | $468.00 |
-| Align Account Codes (up to 20) | $624.00 |
+| Align Financial Software's Account Codes (up to 20) | $624.00 |
 
 > Additional account configuration is billed at standard hourly rates.
 
 ---
 
-## **Section 6: Account Interface Levels**
+## Section 6: Account Interface Levels
 
-**CounterPoint can interface transactions to your accounting system at different levels of detail. Choose one. Any level other than None is an add-on (see [Section 5](#section-5-costs-and-pricing)).**
+CounterPoint can interface transactions to your accounting system at different levels of detail. Choose one. Any level other than None is an add-on (see [Section 5](#section-5-costs-and-pricing)).
 
-| **Level** | **Example Sales Account #s** | **Notes** |
+| Level | Example Sales Account #s | Notes |
 |---|---|---|
-| **None** | **3000** | **Most common** |
-| **Store/Location** | **3000-100 (store 100), 3000-101 (store 101)** | **Multi-store clients** |
-| **Category** | **3000-40 (category 40), 3000-50 (category 50)** | **Extremely detailed, not recommended** |
-| **Subcategory** | **3000-440 (subcategory 440), 3000-450 (subcategory 450)** | **Extremely detailed, not recommended** |
-| **Account Code** | **3000-1 (merchandise 1), 3000-2 (services 2)** | **Category (department) level detail** |
-| **Combination** | **3000-100-1 (store 100, merchandise 1), 3000-101-2 (store 101, services 2)** | **Store plus account code** |
+| None | 3000 | Most common |
+| Store/Location | 3000-100 (store 100), 3000-101 (store 101) | Multi-store clients |
+| Category | 3000-40 (category 40), 3000-50 (category 50) | Extremely detailed, not recommended |
+| Subcategory | 3000-440 (subcategory 440), 3000-450 (subcategory 450) | Extremely detailed, not recommended |
+| Account Code | 3000-1 (merchandise 1), 3000-2 (services 2) | Category (department) level detail |
+| Combination | 3000-100-1 (store 100, merchandise 1), 3000-101-2 (store 101, services 2) | Store plus account code |
 
 ---
 
-## **Section 7: Implementation Steps**
+## Section 7: Implementation Steps
 
-| **Step** | **Client Activities** | **Rapid's Activities** |
+| Step | Client Activities | Rapid's Activities |
 |---|---|---|
-| **1** | **Tell Rapid which accounting system you plan to use, including the specific version.** | **Verify the software is compatible with your installed version of CounterPoint. Schedule a CounterPoint upgrade if needed.** |
-| **2** | **Install the accounting system on a computer on your network and complete the registration process with the software vendor.** | **Your bookkeeper is usually the best person to install it. Rapid can do the install for an additional charge.** |
-| **3** | **Get familiar with your accounting system. Be sure to enable account numbers.** | **Rapid can train you on interfacing to the accounting system. Rapid can't train you on using the accounting system itself; your bookkeeper should provide that.** |
-| **4** | **If applicable, determine your Chart of Accounts and account numbers using the mapping document Rapid provides.** | **Conduct the Chart of Accounts review, enter account mappings in CounterPoint, and configure and test the integration.** |
-| **5** | **Once you're selling in CounterPoint, attend training and begin vouchering and interfacing distributions on the schedule you chose.** | **Conduct the Vouchering and Distributions training classes.** |
+| 1 | Tell Rapid which accounting system you plan to use, including the specific version. | Verify the software is compatible with your installed version of CounterPoint and is a version still supported by its vendor. Schedule a CounterPoint upgrade if needed. |
+| 2 | Install the accounting system on a computer on your network and complete the registration process with the software vendor. | Your bookkeeper is usually the best person to install it. Rapid can do the install for an additional charge. |
+| 3 | Get familiar with your accounting system. Be sure to enable account numbers. | Rapid can train you on interfacing to the accounting system. Rapid can't train you on using the accounting system itself; your bookkeeper should provide that. |
+| 4 | If applicable, determine your Chart of Accounts and account numbers using the mapping document Rapid provides. | Conduct the Chart of Accounts review, enter account mappings in CounterPoint, and configure and test the integration. |
+| 5 | Once you're selling in CounterPoint, attend training and begin vouchering and interfacing distributions on the schedule you chose. | Conduct the Vouchering and Distributions training classes. |
 
 > **Historical transactions:** if you used CounterPoint before your Chart of Accounts was configured, those earlier transactions can't be interfaced as-is. For an additional fee, Rapid can edit the history so it can be interfaced. Most clients choose to interface only transactions from after the Chart of Accounts is configured.
 
