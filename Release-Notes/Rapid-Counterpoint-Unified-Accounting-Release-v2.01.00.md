@@ -1,8 +1,8 @@
-# Rapid POS Unified Accounting Connector v2.01.00 Release Notes - COMING SOON
+# Rapid POS Unified Accounting Connector v2.01.00 Release Notes
 
 **Release Date:** TBD
 
-_This release adds Sage BusinessWorks support and stops duplicate or missing bills when several people voucher to QuickBooks at the same time._
+_This release adds Sage BusinessWorks support, keeps your QuickBooks Online sign-in current without anyone signing in again, and stops duplicate or missing bills when several people voucher to QuickBooks at the same time._
 
 ## New Features & Improvements
 
@@ -19,6 +19,30 @@ You can now send CounterPoint accounting data to Sage BusinessWorks as import fi
 - If CounterPoint's A/P file setting is "always append", every run in a day adds to one file named with the date, and the note says how many lines were added. With any other setting, each run creates its own file named with the date and time.
 - A single run can hold up to 999 journal entries, so send larger batches in smaller runs.
 
+### QuickBooks Online sign-in now renews automatically
+
+The connector now renews your QuickBooks Online sign-in for you, so nobody has to sign in again each time it expires.
+
+- At the start of every run, the connector checks the sign-in and renews it if it's close to expiring, so each run starts with a sign-in that still has time left.
+- The sign-in window now opens only when no sign-in has been saved yet, or when QuickBooks no longer accepts the saved one (for example, after someone disconnected access in QuickBooks or the connection's administrator changed).
+- If a distributions run and a vouchers run for the same company start together, one renews the sign-in and the other waits and uses it. They no longer overwrite each other's sign-in.
+
+### QuickBooks Online sign-in now saved with your company and encrypted
+
+The connector now saves your QuickBooks Online sign-in with your company in CounterPoint, instead of with whichever Windows account signed in.
+
+- Any Windows account or scheduled task that runs the connector for the company uses the same sign-in, and distributions and vouchers share it.
+- The saved sign-in is encrypted, so an export, backup or restored copy of your accounting configuration doesn't give anyone a usable QuickBooks sign-in.
+- Every computer that runs the connector needs the same encryption key as the one that saved the sign-in. Without that key, the run stops with a message explaining the problem instead of asking you to sign in over a sign-in that still works.
+
+### Clearer alerts when the sign-in needs attention
+
+Store staff now get a QuickBooks Interfacing Alert in the CounterPoint Message Center when the connector can't renew the sign-in, or when someone needs to sign in and didn't finish.
+
+- If QuickBooks can't be reached or returns an error, the run stops and leaves the saved sign-in alone. It doesn't open the sign-in window, since signing in again wouldn't fix that problem.
+- If another run takes more than two minutes to renew the sign-in, the waiting run stops without changing anything. If that happens, run it again.
+- The connector does these checks before it sends anything to QuickBooks. Before this update, a run that hit a rejected sign-in failed and cleared the waiting accounting data. Now, if a run stops over the sign-in, your staged distributions and vouchers stay put for the next run.
+
 ### More secure database connection
 
 The connector now signs in to CounterPoint with its own database login and keeps the password encrypted. During the update, you can give the accounts that run the connector access to the encryption key.
@@ -26,10 +50,6 @@ The connector now signs in to CounterPoint with its own database login and keeps
 ### Request timing in the connector log
 
 The connector log now shows how long each QuickBooks Desktop request takes, which makes a slow or locked company file easier to spot.
-
-### New user guides
-
-We added a user guide for the connector and a separate one for Sage BusinessWorks. Both cover daily use, setup and troubleshooting.
 
 ## Bug Fixes
 
@@ -49,10 +69,6 @@ Each bill and vendor credit now carries a hidden reference to its CounterPoint v
 - If QuickBooks returns an error, such as a locked company file, the connector checks whether the bill was saved anyway. If it was, the connector counts it as posted instead of retrying and creating a duplicate.
 - The connector no longer mistakes vouchers with the same vendor, invoice number and amount for duplicates. This matters if you reuse monthly invoice numbers across locations and purchase orders.
 - Bills posted before this update don't carry the reference, so the connector can't match them.
-
-### QuickBooks Online asks you to sign in again when the saved connection stops working
-
-If QuickBooks Online rejected the saved connection (for example, after the connection's administrator changed), the run failed and cleared the waiting accounting data. The connector now catches this before posting and opens the sign-in window. If you don't finish signing in, the run stops and nothing gets cleared.
 
 ### Voucher runs no longer fail when an account has no profit center
 
