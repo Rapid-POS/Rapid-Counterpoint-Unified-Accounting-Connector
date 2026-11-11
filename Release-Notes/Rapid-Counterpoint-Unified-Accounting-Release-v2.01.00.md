@@ -1,4 +1,4 @@
-# Rapid POS Unified Accounting Connector v2.01.00 Release Notes
+# Rapid POS Unified Accounting Connector v2.01.00 Release Notes - Approved and Coming Soon
 
 **Release Date:** TBD
 
