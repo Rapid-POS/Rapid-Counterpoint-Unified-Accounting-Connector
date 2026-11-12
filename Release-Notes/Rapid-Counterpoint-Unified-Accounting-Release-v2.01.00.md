@@ -1,104 +1,85 @@
-# Rapid POS Unified Accounting Connector v2.01.00 Release Notes - Approved and Coming Soon
+# Rapid POS Unified Accounting Connector v2.01.00 Release Notes
 
-**Release Date:** TBD
+**Release Date:** November 15, 2026
 
-_This release adds Sage BusinessWorks support, keeps your QuickBooks Online sign-in current without anyone signing in again, and stops duplicate or missing bills when several people voucher to QuickBooks at the same time._
+_This release adds a Sage BusinessWorks connector, keeps QuickBooks Online signed in on its own, makes QuickBooks Desktop vouchering safe when several people voucher at once, and adds menu actions to clear stuck staged entries._
 
 ## New Features & Improvements
 
-### Sage BusinessWorks export
+### Sage BusinessWorks connector
 
-You can now send CounterPoint accounting data to Sage BusinessWorks as import files, which you bring in through BusinessWorks' own import screens.
+You can now send CounterPoint GL entries and A/P vouchers to Sage BusinessWorks as import files, ready to bring in through BusinessWorks' own import screens.
 
-- BusinessWorks doesn't let other programs write to it directly, so nothing posts until you import the files.
-- The connector creates three kinds of files: general ledger journal entries, vendor bills and credits (credits come through as adjustments), and new or changed vendors.
-- When a file is ready, a "Sage BusinessWorks Import Ready" note in the CounterPoint Message Center tells you where to find it. Problems show up as alerts in a new "SAGEBW Alerts" group, so add at least one person to that group. A pop-up reminds you the first time the connector is installed.
-- Each journal entry covers one distribution date, and every line shows the event, package, activity type and document it came from.
-- If you turn on the vendor option in setup, the connector creates a vendor file for any vendor that has a voucher and hasn't been sent before. The connector assumes vendors already in CounterPoint at the time of the update are already in BusinessWorks.
-- The connector skips any vendor BusinessWorks would reject and lists it in an alert. That covers a missing name, address, city, state or zip code, or an ID longer than 12 characters.
-- If CounterPoint's A/P file setting is "always append", every run in a day adds to one file named with the date, and the note says how many lines were added. With any other setting, each run creates its own file named with the date and time.
-- A single run can hold up to 999 journal entries, so send larger batches in smaller runs.
+- GL journal entries and A/P invoices and credits each get their own import file. A Message Center alert tells you when a file is ready and which BusinessWorks menu to import it from.
+- The connector writes vendors to their own file the first time a voucher needs them. Import that file before the A/P invoice file.
+- If a vendor is missing something BusinessWorks requires, such as an address or ZIP code, the connector skips it and lists it in Message Center. Once you fix the vendor, the connector picks it up again.
+- When CounterPoint's A/P file setting is "always append", the connector adds A/P entries to one file per day instead of creating a new file per run. Message Center reminds you to move the file after you import it.
+- Vendor credits come in as open vendor credits, with the CounterPoint invoice number in the Reference field.
+- Each GL line description shows its event, package, activity type and document number.
+- BusinessWorks limits the size of each import file, so the connector stops any batch with more than 999 journal entries and asks you to split it.
+- Nothing posts automatically. Someone has to import each file in BusinessWorks.
 
-### QuickBooks Online sign-in now renews automatically
+### QuickBooks Online stays signed in on its own
 
-The connector now renews your QuickBooks Online sign-in for you, so nobody has to sign in again each time it expires.
+The connector now saves your QuickBooks Online sign-in securely with your company's accounting settings and renews it at the start of each run. It no longer depends on which Windows user signed in.
 
-- At the start of every run, the connector checks the sign-in and renews it if it's close to expiring, so each run starts with a sign-in that still has time left.
-- The sign-in window now opens only when no sign-in has been saved yet, or when QuickBooks no longer accepts the saved one (for example, after someone disconnected access in QuickBooks or the connection's administrator changed).
-- If a distributions run and a vouchers run for the same company start together, one renews the sign-in and the other waits and uses it. They no longer overwrite each other's sign-in.
+- The sign-in window only opens when QuickBooks stops accepting the saved sign-in.
+- Two runs started together, such as distributions and vouchers, no longer interfere with each other's sign-in renewal.
 
-### QuickBooks Online sign-in now saved with your company and encrypted
+### Clear stuck staged entries from the CounterPoint menu
 
-The connector now saves your QuickBooks Online sign-in with your company in CounterPoint, instead of with whichever Windows account signed in.
+When entries get stuck waiting to be sent, you can now use **Clear Staged A/P Vouchers** and **Clear Staged GL Distributions** under **Connectors > Accounting**.
 
-- Any Windows account or scheduled task that runs the connector for the company uses the same sign-in, and distributions and vouchers share it.
-- The saved sign-in is encrypted, so an export, backup or restored copy of your accounting configuration doesn't give anyone a usable QuickBooks sign-in.
-- Every computer that runs the connector needs the same encryption key as the one that saved the sign-in. Without that key, the run stops with a message explaining the problem instead of asking you to sign in over a sign-in that still works.
+- Clearing deletes the staged entries without sending them. Anything that was never sent has to be vouchered again.
+- The connector won't clear A/P vouchers while a voucher run is posting, so it never pulls entries out from under a run. Try again after that run finishes.
+- The update adds these menu entries to the CounterPoint menus set up for your company.
 
-### Clearer alerts when the sign-in needs attention
+### Clearer message when a voucher line has no account
 
-Store staff now get a QuickBooks Interfacing Alert in the CounterPoint Message Center when the connector can't renew the sign-in, or when someone needs to sign in and didn't finish.
-
-- If QuickBooks can't be reached or returns an error, the run stops and leaves the saved sign-in alone. It doesn't open the sign-in window, since signing in again wouldn't fix that problem.
-- If another run takes more than two minutes to renew the sign-in, the waiting run stops without changing anything. If that happens, run it again.
-- The connector does these checks before it sends anything to QuickBooks. Before this update, a run that hit a rejected sign-in failed and cleared the waiting accounting data. Now, if a run stops over the sign-in, your staged distributions and vouchers stay put for the next run.
-
-### More secure database connection
-
-The connector now signs in to CounterPoint with its own database login and keeps the password encrypted. During the update, you can give the accounts that run the connector access to the encryption key.
-
-### Request timing in the connector log
-
-The connector log now shows how long each QuickBooks Desktop request takes, which makes a slow or locked company file easier to spot.
+When QuickBooks Desktop vouchering can't read an account from a voucher line, the alert now names the voucher and the account and tells you which accounting interface settings to check. Before, QuickBooks only reported a vague invalid-account error.
 
 ## Bug Fixes
 
 ### Duplicate or missing QuickBooks Desktop bills when several people voucher at once
 
-When CounterPoint let several users voucher at the same moment, their runs could collide and create duplicate bills or drop some. Now only one run posts at a time. A run that starts while another is posting hands its vouchers over and finishes quickly.
+With CounterPoint's concurrent vouchering turned on, two people vouchering at the same moment could post a bill twice or lose one. The connector now posts vouchers one run at a time and never sends a voucher twice.
 
-- The connector waits until CounterPoint finishes writing a voucher before posting it, so vouchers don't post half finished.
-- The connector clears each voucher from the waiting list as soon as it posts.
-- The connector no longer deletes vouchers that other users add while a run is posting.
+- If a run starts while another is posting, it hands its vouchers to the run that is already working, so CounterPoint isn't left waiting.
+- The connector checks every voucher against QuickBooks first. If the voucher is already there, the connector skips it and Message Center says so.
+- After a QuickBooks error or timeout, the connector asks QuickBooks whether the bill or credit was saved anyway, so it doesn't post it a second time.
+- If CounterPoint is still saving a voucher, the connector waits for the next pass instead of sending it half-complete.
+- The connector clears each voucher from staging as soon as it posts, so CounterPoint can stage that voucher again if it needs to.
 
-### QuickBooks Desktop no longer posts the same voucher twice
+### QuickBooks Online no longer clears staged entries when sign-in is rejected
 
-Each bill and vendor credit now carries a hidden reference to its CounterPoint voucher, and the connector checks for that reference before posting.
+If QuickBooks Online rejected the saved sign-in, the run could fail and still clear the staged entries without posting them. The connector now signs in again when needed. If you close the sign-in window without finishing, it stops with a Message Center alert and leaves your entries staged.
 
-- If the voucher is already in QuickBooks, the connector skips it and leaves a note in the Message Center.
-- If QuickBooks returns an error, such as a locked company file, the connector checks whether the bill was saved anyway. If it was, the connector counts it as posted instead of retrying and creating a duplicate.
-- The connector no longer mistakes vouchers with the same vendor, invoice number and amount for duplicates. This matters if you reuse monthly invoice numbers across locations and purchase orders.
-- Bills posted before this update don't carry the reference, so the connector can't match them.
+### QuickBooks Desktop no longer skips real vouchers that share an invoice number
 
-### Voucher runs no longer fail when an account has no profit center
+The connector could mistake vouchers that reuse an invoice number, such as a monthly "AUG 26" across locations and POs, for duplicates and skip them. It now tells vouchers apart by their PO, invoice date, memo and lines.
 
-An account number without a profit center part used to stop the whole voucher run. The connector now treats the profit center as blank and keeps going.
+### Vouchers no longer fail on accounts without every segment
 
-### QuickBooks Online vendor terms due on a day of the month
+If an account on a voucher line had no profit center (or another segment), the whole voucher run stopped. The connector now treats that segment as empty and keeps going.
 
-Vendor terms like "due on the 15th of the month", including their cut-off and discount days, couldn't be created in QuickBooks Online and stopped the run. The connector now creates them correctly.
+### QuickBooks Online vendor terms with a day of the month
 
-### Clearer error when a voucher line has no QuickBooks account
+Creating a QuickBooks Online vendor term due on a day of the month used to fail. The connector now creates these terms correctly, with their cutoff and early-payment discount. Net-days terms now include their early-payment discount days too.
 
-If the connector can't read a QuickBooks account from a voucher line's CounterPoint account, the message now names the voucher and tells you what to check. Before, QuickBooks just returned a vague "invalid account" error.
+### QuickBooks Online journal entry details
 
-### Correct vendor number and department on QuickBooks Online journal entries
-
-We fixed two labeling problems on journal entries sent to QuickBooks Online.
-
-- The vendor number in a journal line's description now comes from the matching receiver. Before, it could come from a different receiver.
-- The connector now sends locations as departments. It had been sending them as classes by mistake.
-
-### Startup errors now reach the log
-
-Errors that happened right at startup could get lost because the program closed before writing them to the log. They now show up in the log file.
+- Lines for received merchandise now have the correct vendor number in their description.
+- The connector now tags locations as locations (departments) instead of classes.
 
 ## Maintenance
 
-- Updates install more reliably. We fixed installer stops caused by undefined setup values, a column error on some accounting types, and long steps timing out. The installer also no longer adds runtime software the connector doesn't need.
+- Updates on servers are more reliable. Database steps get more time, the update skips .NET runtime installs it doesn't need, and we fixed setup errors on some accounting types.
+- Updates give the Windows accounts that run the connector access to the secure key. They can also prepare a password-protected key package for moving the key to a workstation.
+- The connector now connects to CounterPoint with a dedicated login that the update sets up, instead of reading Companies.ini. If your server serves several companies, Rapid sets up a separate install folder for each company during the update, so you don't need to do anything.
+- If the connector stops at startup, the error details now always reach the log file.
 
 ## Known Issues
 
-### Sage BusinessWorks: two voucher runs at the same moment
+### One-time QuickBooks Online sign-in after updating
 
-If two people run the voucher interface for Sage BusinessWorks at exactly the same moment, the same voucher can appear twice in the import file. Check each file before you import it. After importing, move the file to an archive so nobody imports it twice.
+The connector now saves the sign-in with your company's accounting settings instead of under a Windows user, so the first run after the update asks you to sign in to QuickBooks Online again. Run the connector from a desktop session and complete the sign-in window. Later runs renew it automatically.
